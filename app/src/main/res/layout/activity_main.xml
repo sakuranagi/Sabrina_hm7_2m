@@ -24,6 +24,16 @@
             android:layout_height="wrap_content"
             />
 
+        <Button
+            android:id="@+id/btn_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Result"
+            android:textSize="26sp"
+            android:layout_margin="50dp"
+            android:background="@drawable/custom_button"
+            android:visibility="gone"/>
+
     </FrameLayout>
 
     <LinearLayout
@@ -205,7 +215,7 @@
                 android:id="@+id/btn_equal"
                 style="@style/Orange.Button"
                 android:text="="
-                android:onClick="onOperationClick"/>
+                android:onClick="onEqualsClick"/>
 
 
         </LinearLayout>

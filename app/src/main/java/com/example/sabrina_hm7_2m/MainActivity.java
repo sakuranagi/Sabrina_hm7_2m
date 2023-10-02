@@ -1,6 +1,8 @@
 package com.example.sabrina_hm7_2m;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,16 +14,30 @@ public class MainActivity extends AppCompatActivity {
     private Boolean isOperationClick;
     private String currentOperator;
 
+    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView = findViewById(R.id.text_view);
+        button = findViewById(R.id.btn_result);
+
+        button.setOnClickListener(view -> {
+
+            String text = textView.getText().toString();
+
+            Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+            intent.putExtra("key", text.toString());
+            startActivity(intent);
+            finish();
+        });
     }
+
 
     public void onNumberClick(View view) {
         if (view.getId() == R.id.btn_clear) {
+            button.setVisibility(View.GONE);
             textView.setText("0");
             first = 0;
             second = 0;
@@ -29,8 +45,10 @@ public class MainActivity extends AppCompatActivity {
         } else {
             String textButton = ((Button) view).getText().toString();
             if (textView.getText().toString().equals("0") || isOperationClick) {
+                button.setVisibility(View.GONE);
                 textView.setText(textButton);
             } else {
+                button.setVisibility(View.GONE);
                 textView.append(textButton);
             }
         }
@@ -43,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             calculate();
         }
         currentOperator = textButton;
-
+        button.setVisibility(View.GONE);
         first = Integer.valueOf(textView.getText().toString());
         isOperationClick = true;
     }
@@ -53,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
             calculate();
             currentOperator = null;
         }
+        button.setVisibility(View.VISIBLE);
     }
 
     private void calculate() {
@@ -73,8 +92,7 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 textView.setText("На ноль делить нельзя");
             }
-        }
-        else if (currentOperator.equals("%")) {
+        } else if (currentOperator.equals("%")) {
             int modulo = first % second;
             textView.setText(String.valueOf(modulo));
         }
